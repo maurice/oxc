@@ -401,8 +401,9 @@ impl GraphicalReportHandler {
         )?;
 
         if let Some(source_name) = contents.name() {
-            let source_name = source_name.style(self.theme.styles.link);
-            writeln!(f, "[{}:{}:{}]", source_name, contents.line() + 1, contents.column() + 1)?;
+            let source =
+                format!("{}:{}:{}", source_name, contents.line() + 1, contents.column() + 1);
+            writeln!(f, "[{}]", source.style(self.theme.styles.link))?;
         } else if lines.len() <= 1 {
             writeln!(f, "{}", self.theme.characters.hbar.to_string().repeat(3))?;
         } else {
